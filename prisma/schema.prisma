@@ -9,3 +9,18 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Issue {
+  id          Int      @id @default(autoincrement()) // everytime data entry is added, id increments
+  title       String   @db.VarChar(255) // var char makes it so title can be at most 255 characters
+  description String   @db.Text
+  status      Status   @default(OPEN)
+  createdAt   DateTime @default(now()) // now() inserts the current DateTime of when an Issue is created
+  updatedAt   DateTime @updatedAt // @updatedAt changes the 'upDatedAt' to the DateTime of when it is updated
+}
+
+enum Status {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
