@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import {z} from 'zod';
 import prisma, { Prisma, PrismaClient } from "@prisma/client";
-
-// we use zod to ensure that the data we are passing into the POST request of our API is the correct information to match our database schema
-const createIssueSchema = z.object({
-    title: z.string().min(1).max(255),
-    description: z.string().min(1)
-})
+import { createIssueSchema } from "../../validationSchemas";
 
 export async function POST(request: NextRequest){
     const body = await request.json();
